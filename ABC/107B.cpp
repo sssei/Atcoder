@@ -14,14 +14,14 @@ int main()
     }
 
     int cnt = 0;
-    for (int i = 0; i < H - cnt; i++){
-        if(a.at(i - cnt) == string('.',W)){
+    /*for (int i = 0; i < H - cnt; i++){
+        if(a[i - cnt] == string('.',W)){
             a.erase(a.begin() + i - cnt);
             cnt++;
             cout << " hh" << endl;
         }
     }
-    
+    */
     int cnt2 = 0;
     
     for (int j = 0; j < W - cnt2; j++){
@@ -39,7 +39,7 @@ int main()
             }
         }
     }
-
+    
     for (int i = 0; i < H - cnt; i++){
         cout << a.at(i) << endl;
     }
