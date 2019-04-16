@@ -14,17 +14,17 @@ int main()
     }
 
     int cnt = 0;
-    /*for (int i = 0; i < H - cnt; i++){
-        if(a[i - cnt] == string('.',W)){
+    string str(W,'.');
+    for (int i = 0; i < H; i++){
+        if(a[i - cnt] == str){
             a.erase(a.begin() + i - cnt);
             cnt++;
-            cout << " hh" << endl;
         }
     }
-    */
+    
     int cnt2 = 0;
     
-    for (int j = 0; j < W - cnt2; j++){
+    for (int j = 0; j < W; j++){
         bool flag = true;
         for (int i = 0; i < H - cnt; i++){
             if (a[i][j - cnt2] != '.'){
@@ -32,11 +32,11 @@ int main()
                 break;
             }
         }
-        if (!flag){
+        if (flag){
             for (int i = 0; i < H - cnt; i++){
                 a[i].erase(a[i].begin() + j - cnt2);
-                cnt2++;
             }
+            cnt2++;
         }
     }
     
