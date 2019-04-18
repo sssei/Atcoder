@@ -24,6 +24,7 @@ int main()
     
     int cnt2 = 0;
     
+    
     for (int j = 0; j < W; j++){
         bool flag = true;
         for (int i = 0; i < H - cnt; i++){
