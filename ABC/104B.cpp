@@ -12,8 +12,8 @@ int main(){
     cout << "WA" << endl;
   }else{
     int cnt = 0;
-    int idx;
-    for (int i = 3; i < length - 1; ++i){
+    int idx; 
+    for (int i = 2; i < length - 1; ++i){
       if(S.at(i) == 'C'){
         cnt++;
         idx = i;
