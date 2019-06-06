@@ -1,41 +1,42 @@
-#include <cmath>
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-#include <numeric>
-#include <bitset>
-#include <sstream>
+#include <string>
 
 using namespace std;
 
-
 int main(){
+  
   int N,M; cin >> N >> M;
-  vector <vector <int> > vec(M);
-  for(int i = 0; i < M; i++){
+  vector<vector< int > > vec(M);
+  
+  for (int i = 0; i < M; i++){
     int k; cin >> k;
-    vector <int> v(k);
-    for(j = 0; j < k; j++){
-      cin >> v[j];
+    vec[i].resize(k);
+    for(int j = 0; j < k; j++){
+      cin >> vec[i][j];
     }
   }
+
   vector <int> p(M);
   for(int i = 0; i < M; i++){
     cin >> p[i];
   }
 
-  vector <int> s(N);
-  for(int i = 0; i < (int)pow(2,N), i++){
-    for(int j = 0; j < N; j++){
-      if((i/pow(2,j))%2 == 1){
-	s[j] = 1;
-      }else{
-	s[j] = 0;
+  int ans = 0;
+
+  for(int i = 0; i < (1 << N); i++){
+    bool flag = true;
+    for (int j = 0; j < M; j++){
+      int cnt = 0;
+      for(auto x: vec[j]){
+	if((i >> (x-1)) & 1){
+	  cnt++;
+	}
       }
+      if((cnt%2) != p.at(j)) flag = false;
     }
-    for(int k = 0; k < M; k++){
-       
-    }
+    if(flag) ans++;
   }
+
+  cout << ans << endl;
 }

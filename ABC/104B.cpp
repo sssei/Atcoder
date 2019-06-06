@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <cctype>
 
 using namespace std;
 
@@ -23,9 +24,9 @@ int main(){
       cout << "WA" << endl;
     }else{
       S.erase(S.begin());
-      S.erase(S.end() - 2);
-      string S2;
-      transform(S.begin(),S.end(),S2.begin(),::tolower);
+      S.erase(S.begin() + idx - 1);
+      string S2 = S;
+      transform(S.begin(),S.end(),S.begin(),::tolower);
       if(S != S2) cout << "WA" << endl;
       else cout << "AC" << endl;
     }
