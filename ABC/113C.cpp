@@ -10,9 +10,6 @@ struct city{
   int year;
   int number;
   int prefecture;
-  bool operator<(city c){
-    return this->year < c.year;
-  }
 };
 
 struct Prefecture{
@@ -22,6 +19,7 @@ struct Prefecture{
     City.push_back(*c);
     c->prefecture = idx;
   }
+
 };
 
 int main(){
@@ -38,17 +36,19 @@ int main(){
     cin >> C[i].year;
   }
   for(int i = 0; i < N; i++){
-    sort();
+
     int len = P[i].City.size();
     for(int j = 0; j < len; j++){
       P[i].City[j].number = j;
     } 
   }
+
   for(int i = 0; i < M; i++){
     int ans = C[i].prefecture * 1000000;
     ans += C[i].number;
     printf("%12d\n", ans);
   }
+
 }
 
 
