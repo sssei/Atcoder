@@ -12,27 +12,18 @@ int main(){
   int N;
   cin >> N;
   vector<string> str(N);
-  map<long long, int> cnt;
+  map<string, long long > m;
   for(int i = 0; i < N; i++){
     cin >> str.at(i);
+    sort(str[i].begin(), str[i].end());
+    m[str[i]]++;
   }
-
-  for(int i = 0; i < N; i++){
-    long long res = 0;
-    for(int j = 0; j < 10; j++){
-      int digit = str[i][j] - 'a';
-      cout << "digit : " << digit << endl;
-      res += pow(11, digit);
-    }
-    cout << "res: " << res << endl;
-    cnt[res]++;
-  }
-
-  int ans = 0;
-  for(auto itr = cnt.begin(); itr != cnt.end(); itr++){
-    cout << "map " << itr->first << " " << itr->second << endl;
-    ans += itr->second * (itr->second - 1);    
+  long long  ans = 0;
+  for(auto itr = m.begin(); itr != m.end(); itr++){
+    long long  t = itr->second;
+    ans += t * (t-1) / 2;
   }
 
   cout << ans << endl;
+  
 }
