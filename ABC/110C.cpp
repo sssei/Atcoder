@@ -4,25 +4,24 @@
 #include <algorithm>
 #include <utility>
 #include <cmath>
+#include <map>
 typedef long long ll;
 using namespace std;
 
 int main(){
   string S,T;
   cin >> S >> T;
-  vector<int> s(26,0),t(26,0);
-  for(int i = 0; i < S.length(); ++i){
-    s[S[i]-'a']++;
-    t[T[i]-'a']++;
+  map<char,char> m1, m2;
+  bool flag = true;
+  for(int i = 0; i < S.size(); ++i){
+    char s = S[i], t = T[i];
+    if(m1.count(s)) if(m1[s] != t) flag = false;
+    if(m2.count(t)) if(m2[t] != s) flag = false;
+    m1[s] = t;
+    m2[t] = s;
   }
-  sort(s.begin(), s.end());
-  sort(t.begin(), t.end());
-  for(int i = 0; i < 26; ++i){
-    if(s[i] != t[i]){
-      cout << "No" << endl;
-      return 0;
-    }
-  }
-  cout << "Yes" << endl;
-  return 0;
+  if(flag) cout << "Yes" << endl;
+  else cout << "No" << endl;
+  
+  
 }
