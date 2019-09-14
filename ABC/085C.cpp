@@ -22,7 +22,7 @@ int main(){
       }
     }
   }
-
+  
   cout << res1 << " " << res2 << " " << res3 << endl;
   
 }

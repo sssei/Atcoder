@@ -1,3 +1,4 @@
+#include <queue>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -11,20 +12,28 @@ using namespace std;
 int main(){
   int N,M;
   cin >> N >> M;
-  vector<pair<int,int> > a(N);
-  vector<int> rec(M+1);
+  vector<int> q[M];
+  priority_queue<int> m;
   for(int i = 0; i < N; ++i){
-    cin >> a[i].second >> a[i].first;
+    int a,b;
+    cin >> a >> b;
+    a--;
+    if(a < M){
+      q[a].push_back(b);
+    }
   }
-
   ll sum = 0;
-  sort(a.rbegin(), a.rend());
-  int date = 1;
-  for(int i = 0; i < N; ++i){
-    
+  for(int i = 0; i < M; ++i){
+    for(auto x: q[i]){
+      m.push(x);
+    }
+    if(!m.empty()){
+      sum += m.top();
+      m.pop();
+    }
   }
-  for(int i = 0; i < N; ++i){
-    cout << "a[" << i << "]" << ": " << a[i].first << " " << a[i].second << endl;
-  }
+  cout << sum << endl;
 
+
+  
 }
