@@ -1,12 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
-
+#include <cmath>
 using namespace std;
 
 int main(){
-  
-  vector <int> vec = {1,1,1,1,4,4,4,4,4,43};
-  cout << *unique(vec.begin(), vec.end()) << endl;
-
+  long long  p = pow(10, 10);
+  cout << p << endl;
 }
