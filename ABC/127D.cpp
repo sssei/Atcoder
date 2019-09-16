@@ -14,6 +14,14 @@ int main(){
     cin >> b[i][0] >> b[i][1];
   }
   sort(a.begin(), a.end());
+  for(int i = 0; i < M; ++i){
+    int it = lower_bound(a.begin(), a.end(), b[i][1]) - a.begin();
+    if(b[i][0] - 1 < it){
+      
+    }
+    
+  }
 
+  
 
 }

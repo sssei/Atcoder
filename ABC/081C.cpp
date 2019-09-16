@@ -12,9 +12,20 @@ int main(){
     m[t]++;
   }
   int s = m.size();
-  vector<int> v;
+  priority_queue<int, vector<int>, greater<int> > p;
   for(auto x: m){
-    v.push_
+    p.push(x.second);
+  }
+  if(s <= K){
+    cout << 0 << endl;
+  }else{
+    int res = 0;
+    int t = s - K;
+    for(int i = 0; i < t; ++i){
+      res += p.top();
+      p.pop();
+    }
+    cout << res << endl;
   }
 
 
