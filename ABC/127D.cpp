@@ -6,22 +6,28 @@ int main(){
   int N,M;
   cin >> N >> M;
   vector<int> a(N);
+  map<int,int> m;
   for(int i = 0; i < N; ++i){
     cin >> a[i];
+    m[a[i]]++;
   }
-  int b[M][2];
+  vector<pair<int,int> > p(M);
   for(int i = 0; i < M; ++i){
-    cin >> b[i][0] >> b[i][1];
+    cin >> p[i].second >> p[i].first;
+    m[p[i].first] += p[i].second;
   }
-  sort(a.begin(), a.end());
-  for(int i = 0; i < M; ++i){
-    int it = lower_bound(a.begin(), a.end(), b[i][1]) - a.begin();
-    if(b[i][0] - 1 < it){
-      
+  ll sum = 0;
+  int cnt = 0;
+  for(auto itr = m.rbegin(); itr != m.rend(); ++itr){
+    int c = itr->second;
+    while(cnt < N && c > 0){
+      sum += itr->first;
+      c--;
+      cnt++;
     }
-    
+    if(cnt == N) break;
   }
-
   
-
+  cout << sum << endl;
+  
 }
