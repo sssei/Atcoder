@@ -4,18 +4,21 @@ using namespace std;
 
 int N;
 
-void func(ll cur, int use, int &counter){
-  if(cur > N) return;
-  if(use == 0b111) counter++;
-  func(10*cur + 3, use | 0b001, counter);
-  func(10*cur + 5, use | 0b010, counter);
-  func(10*cur + 7, use | 0b100, counter);
+ll dfs(ll a, ll b, ll c, ll n){
+  if(n > N) return 0;
+  ll res = 0;
+  if(a > 0 && b > 0 && c > 0) res = 1;
+  res += dfs(a + 1, b, c, 10 * n + 3);
+  res += dfs(a, b + 1, c, 10 * n + 5);
+  res += dfs(a, b, c + 1, 10 * n + 7);
+  return res;
 }
 
 int main(){
   cin >> N;
-  int res = 0;
-  func(0, 0, res);
-  cout << res << endl;
+  cout << dfs(0,0,0,0) << endl;
+  
 }
+
+
 
