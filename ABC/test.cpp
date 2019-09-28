@@ -5,6 +5,9 @@
 using namespace std;
 
 int main(){
-  long long  p = pow(10, 10);
-  cout << p << endl;
+  int t = 1;
+  for(int i = 0; i < 10; ++i){
+    t *= 10;
+  }
+  cout << t << endl;
 }
