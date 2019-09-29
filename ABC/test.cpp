@@ -3,11 +3,16 @@
 #include <numeric>
 #include <cmath>
 using namespace std;
+typedef long long ll;
 
 int main(){
-  int t = 1;
-  for(int i = 0; i < 10; ++i){
-    t *= 10;
+  int t = 100000000;
+  ll tmp = 0;
+  int tm = 0;
+  for(int i = 0; i < 100; ++i){
+    tmp += t;
+    tm += t;
   }
-  cout << t << endl;
+  cout << tm << endl;
+  cout << tmp << endl;
 }

@@ -6,29 +6,23 @@ int main(){
   int N;
   cin >> N;
   vector<int> a(N);
-  vector<int> box(N);
   for(int i = 0; i < N; ++i){
     cin >> a[i];
   }
   vector<int> d(N);
+  int M = 0;
   for(int i = N; i > 0; --i){
-    int tmp = i * 2;
-    int res = 0;
+    int tmp = i;
+    int cnt = 0;
     while(tmp <= N){
-      res += a[i];
+      cnt += d[tmp-1];
       tmp += i;
     }
-    if(res%2 != a[i-1]) d[i-1]++;
+    if(cnt%2 != a[i-1]) d[i-1] = 1, M++;
   }
-
-  vector<int> v;
+  cout << M << endl;
   for(int i = 0; i < N; ++i){
-    if(d[i] == 1) v.push_back(i+1);
-  }
-  cout << v.size() << endl;
-  for(auto x: v){
-    cout << x << " ";
+    if(d[i] == 1) cout << i+1 << " ";
   }
   cout << endl;
-  
 }
