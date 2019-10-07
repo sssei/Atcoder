@@ -3,35 +3,30 @@ typedef long long ll;
 using namespace std;
 
 ll MAX = 1000000007;
-ll N,K;
-vector<ll> dp(2002,1);
+vector< vector<ll> > dp(2010, vector<ll>(2010,-1));
 
-void factorial(){
-  for(int i = 1; i < 2002; ++i){
-    dp[i] = (dp[i-1] * i) % MAX;
+ll combi(int n, int k){
+  if(k == 0 || n == k){
+    dp[n][k] = 1;
+    return 1;
+  } 
+  if(dp[n][k] != -1) return dp[n][k];
+  if(dp[n][k] == -1){
+    ll ans = combi(n-1, k) + combi(n-1, k-1);
+    ans = ans % MAX;
+    dp[n][k] = ans;
+    return ans;
   }
 }
 
-ll combination(ll n, ll k){
-  ll tmp1 = dp[n];
-  ll tmp2 = dp[n-k];
-  ll tmp3 = dp[k];
-  return tmp1 /(tmp2 * tmp3);
-}
-
-ll count(ll i){
-  if(N-K-i+1 < 0) return 0;
-  ll blue = combination(K-1, i-1);
-  cout << "dp " << dp[N-K+1] << " " << dp[N-K-i+1] << " " << dp[N-K+1] / dp[N-K-i+1] << endl;
-  ll red = dp[N-K+1] / (dp[N-K-i+1] * dp[i]);
-  cout << i << " " << blue << " " << red << endl;
-  return blue * red % MAX;
-}
-
 int main(){
-  factorial();
+  int N,K;
   cin >> N >> K;
-  for(ll i = 1; i <= K; ++i){
-    cout << count(i) << endl;
+  for(int i = 1; i <= K; ++i){
+    ll red, blue;
+    if(N-K+1 < i) red = 0;
+    else red = combi(N-K+1,i);
+    blue = combi(K-1, i-1);
+    cout << blue * red % MAX << endl;
   }
 }
