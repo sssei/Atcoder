@@ -1,66 +1,38 @@
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
+typedef long long ll;
 
-int count(vector<int> vec, int idx){
-    if (idx == 0){
-        return vec.at(0) + vec.at(1);
+int main(){
+  ll N,K;
+  cin >> N >> K;
+  string S;
+  cin >> S;
+  int first = S[0] - '0';
+  vector<ll> v;
+  ll cnt = 1;
+  if(first == 0) v.push_back(0);
+  for(int i = 1; i < S.size(); ++i){
+    if(S[i] == S[i-1]){
+      cnt++;
     }else{
-        return vec.at(idx - 1) + vec.at(idx) + vec.at(idx);
+      v.push_back(cnt);
+      cnt = 1;
     }
-}
+  }
+  v.push_back(cnt);
+  if(S.back() == '0') v.push_back(0);
 
-int main()
-{
-    int N,K; cin >> N >> K;
-    int S; cin >> S;
-    vector <int> vec(N);
-    int flag = 0;
-    if (S[0] == '1') flag++;
-    int flag2 = flag;
-    int cnt = 0;
+  vector<ll> sums(v.size()+1, 0);
+  for(int i = 0; i < v.size(); ++i){
+    sums[i+1] = sums[i] + v[i];
+  }
 
-    for (int i = 0; i < N; i++){
-        if (S[i] == '0' + flag){
-            vec[cnt]++;
-        }else{
-            cnt++;
-            vec[cnt] = 1;
-            flag++;
-            flag = flag % 2;
-        }
-    }
-
-    int k = 0;
-    while (k <= K && cnt > 1){
-        int idx = 0 + flag2;
-        int max1 = idx;
-        while (idx <= cnt - 1){
-            if (count(vec,max1) < count(vec,idx)){
-                max1 = idx;
-            }
-            idx += 2;
-        }
-        if (max1 == 0){
-            vec.at(max1) += vec.at(max1+1);
-            vec.erase(vec.begin() + 1);
-            cnt--;
-        }else if (max1 == cnt - 1){
-            vec.at(max1) += vec.at(max1-1);
-            vec.erase(vec.begin() + max1 - 1);
-            cnt--;
-        }else{
-            vec.at(max1) += vec.at(max1-1) + vec.at(max1+1);
-            vec.erase(vec.begin() + max1 - 1);
-            vec.erase(vec.begin() + max1 + 1);
-            cnt -= 2;
-        }
-
-    }
-
-
-    
+  ll res = 0;
+  for(int left = 0; left < v.size(); left += 2){
+    int right = left + 2 * K + 1;
+    if(right > v.size()) right = v.size();
+    res = max(res, sums[right] - sums[left]);
+  }
+  cout << res << endl;
+  
 }
