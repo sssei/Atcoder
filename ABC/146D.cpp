@@ -1,33 +1,58 @@
 #include <bits/stdc++.h>
 typedef long long ll;
 using namespace std;
+#define MAX 100010
 
-const long long MOD = 1000000007;
-const int MAX_C = 10000000;
-long long Com[MAX_C][MAX_C];
-
-void calc_com() {
-    memset(Com, 0, sizeof(Com));
-    Com[0][0] = 1;
-    for (int i = 1; i < MAX_C; ++i) {
-        Com[i][0] = 1;
-        for (int j = 1; j < MAX_C; ++j) {
-            Com[i][j] = (Com[i-1][j-1] + Com[i-1][j]) % MOD;
-        }
-    }
-}
+int N;
+vector< pair<int, int> > G[MAX];
+vector<int> visited(MAX, 0);
 
 int main(){
-  calc_com();
-  int X,Y;
-  cin >> X >> Y;
-  int tmp = X + Y;
-  if(tmp % 6 != 0){
-    cout << 0 << endl;
-  }else{
-    int n = tmp / 3;
-    int r = X - n;
-    cout << Com[n][r] << endl;
+  cin >> N;
+  vector<int> node(N,0);
+  vector<int> edge(N-1);
+  int maxNode = 0;
+  for(int i = 0; i < N-1; i++){
+    int a,b;
+    cin >> a >> b;
+    a--;
+    b--;
+    node[a]++;
+    node[b]++;
+    G[a].push_back(make_pair(i, b));
+    G[b].push_back(make_pair(i, a));
+    int tmpMax = max(node[a], node[b]);
+    maxNode = max(maxNode, tmpMax);
   }
-
+  int K = maxNode;
+  visited[0] = 1;
+  queue<int> q;
+  q.push(0);
+  int color = 1;
+  node[0] = 0;
+  while(!q.empty()){
+    int u = q.front();
+    q.pop();
+    int tmpColor = node[u];
+    int i = 1;
+    for(auto x: G[u]){
+      int num = x.first;
+      int next = x.second;
+      if(visited[next] == 1){
+	continue;
+      }
+      edge[num] = tmpColor + i;
+      if(edge[num] > K){
+	edge[num] -= K;
+      }
+      node[next] = edge[num];
+      visited[next] = 1;
+      q.push(next);
+      i++;
+    }
+  }
+  cout << K << endl;
+  for(int i = 0; i < N-1; i++){
+    cout << edge[i] << endl;
+  }
 }
