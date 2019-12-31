@@ -10,9 +10,11 @@ int main(){
   for(int i = 0; i < N; i++){
     int n;
     cin >> n;
-    vector< pair<int, int> > a(n);
+    pair<int, int> a;
     for(int j = 0; j < n; j++){
-      cin >> a[j].first >> a[j].second;
+      cin >> a.first >> a.second;
+      a.first--; 
+      A[i].push_back(a);
     }
   }
 
@@ -22,14 +24,14 @@ int main(){
     vector<int> people(N, 0);
     int num = 0;
     bool flag = true;
-    
+
     for(int j = 0; j < N; j++){
       if((i >> j) & 1){
 	people[j] = 1;
 	num++;
       }
     }
-    
+
     for(int j = 0; j < N; j++){
       if(people[j] == 1){
 	for(auto x: A[j]){
