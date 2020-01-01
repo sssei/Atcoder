@@ -5,18 +5,8 @@ typedef long long ll;
 ll count(ll n){
   ll res = 0;
   ll d = 10;
-  while(d < n){
+  while(d <= n){
     res += n / d;
-    d *= 5;
-  }
-  return res;
-}
-
-ll five(ll n){
-  ll res = 0;
-  ll d = 5;
-  while(d < n){
-    res +=  n / d;
     d *= 5;
   }
   return res;
