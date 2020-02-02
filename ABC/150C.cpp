@@ -14,5 +14,14 @@ int main(){
   for(int i = 0; i < N; i++){
     cin >> Q[i];
   }
-  
+  vector<int> v(N);
+  for(int i = 0; i < N; i++){
+    v[i] = i + 1;
+  }
+  map<vector<int>, int> ord;
+  int iter = 0;
+  do{
+    ord[v] = iter++;
+  }while(next_permutation(v.begin(), v.end()));
+  cout << abs(ord[P] - ord[Q]) << endl;
 }
