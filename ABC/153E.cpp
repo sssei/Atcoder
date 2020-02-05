@@ -1,46 +1,23 @@
 #include <bits/stdc++.h>
 typedef long long ll;
 using namespace std;
-static const ll MOD = 1000000007;
-
-ll H,N;
-vector< pair<double, pair<ll, ll> > > ab;
-
-ll damage(ll H, ll cnt, ll i){
-  cout << "H:" << H << " cnt:" << cnt << " i:" << i << endl;
-  if(H <= 0){
-    return cnt;
-  }
-  if(H >= ab[i].second.first){
-    cout << "flag0 H:"  << H << " cnt:" << cnt << " i:"  << i << endl;
-    return damage(H-ab[i].second.first, cnt+ab[i].second.second, i);
-  }else{
-    ll res = ab[i].second.second + cnt;
-    for(ll j = i+1; j < N; j++){
-      if(ab[j].second.first >= ab[i].second.first){
-	continue;
-      }
-      cout << "flag H:" << H << " cnt:" << cnt << " i:" << i << endl;
-      res = min(res, damage(H, cnt, j));
-      return res;
-    }
-    return res;
-  }
-
-}
-
+const ll MOD = 1000000007;
+const ll INF = 1LL << 60;
 
 int main(){
+  ll H,N;
   cin >> H >> N;
-  ab.resize(N);
+  vector<ll> A(N),B(N);
   for(int i = 0; i < N; i++){
-    cin >> ab[i].second.first >> ab[i].second.second;
-    ab[i].first = (double) ab[i].second.second / ab[i].second.first;
-    cout << "i:" << i << " ab[i].first:" << ab[i].first << " A:" << ab[i].second.first << " B:" << ab[i].second.second << endl;
+    cin >> A[i] >> B[i];
   }
-  sort(ab.begin(), ab.end());
-  for(auto x: ab){
-    cout << x.first << " " << x.second.first << " " << x.second.second << endl;
+  vector< vector<ll> > dp(N+1, vector<ll>(H+1, INF));
+  dp[0][0] = 0;
+  for(int i = 0; i < N; i++){
+    for(int j = 0; j <= H; j++){
+      dp[i+1][j] = min(dp[i+1][j], dp[i][j]);
+      dp[i+1][min(j+A[i],H)] = min(dp[i+1][min(j+A[i], H)], dp[i+1][j] + B[i]);
+    }
   }
-  cout << damage(H, 0, 0) << endl;
+  cout << dp[N][H] << endl;
 }
