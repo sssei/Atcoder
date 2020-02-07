@@ -1,9 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+const int MOD = 1000000007;
 
-vector<bool> prime_sieve;
-vector<ll> prime_numbers;
+
+vector<bool> prime_sieve;　//素数かどうか
+vector<ll> prime_numbers;　//素数のリスト
 void init_prime(ll n){
   prime_sieve.resize(n+1, true);
   prime_sieve[0] = prime_sieve[1] = false;
@@ -28,19 +30,18 @@ bool is_prime(ll N){
   return true;
 }
 
+//最大公約数
 ll gcd(ll a, ll b){ 
   if(b == 0) return a;
   return gcd(b, a % b);
 }
 
+//最小公倍数
 ll lcm(ll a, ll b){ 
   return a * b / gcd(a, b);
 }
 
 
 int main(){
-  init_prime(10000);
-  for(auto x: prime_numbers){
-    cout << x << endl;
-  }
+
 }
