@@ -7,7 +7,7 @@ const int MOD = 1000000007;
 const int dx[4] = {1, 0, -1, 0};
 const int dy[4] = {0, 1, 0, -1};
 
-int bfs(vector<string> v, int x, int y){
+int BFS(vector<string> v, int x, int y){
   int H = v.size(), W = v[0].size();
   vector<vector<int>> dist(H, vector<int>(W, -1));
   queue<pair<int,int>> que;
@@ -33,6 +33,28 @@ int bfs(vector<string> v, int x, int y){
   return res;
 }
 
-int main(){
-  
+
+
+using edge = struct {int to; ll cost;};
+vector<vector<edge>> G;
+vector<ll> dist;
+
+void bfs(int a){
+  dist[a] = 0;
+  queue<int> que;
+  que.push(a);
+  ll res = 0;
+  while(!que.empty()){
+    int n = que.front();
+    que.pop();
+    res = dist[n];
+    for(auto x: G[n]){
+      if(dist[x.to] == -1){
+	dist[x.to] = res + x.cost;
+	que.push(x.to);
+      }
+    }
+  }
 }
+
+
