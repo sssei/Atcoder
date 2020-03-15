@@ -7,16 +7,20 @@ static const ll MOD = 1000000007;
 int N;
 vector<string> vec;
 
-void func(string s){
+void func(string s, char c){
   if(s.size() == N){
     vec.push_back(s);
     return;
   }else{
-    char tmp = s.back();
-    for(char i = 'a'; i <= tmp + 1; i++){
+    char tmp = c;
+    for(char i = 'a'; i <= tmp; i++){
       string res = s;
       res.push_back(i);
-      func(res);
+      if(i == tmp){
+	func(res, tmp + 1);
+      }else{
+	func(res, tmp);
+      }
     }
     return;
   }
@@ -24,7 +28,7 @@ void func(string s){
 
 int main(){
   cin >> N;
-  func("a");
+  func("", 'a');
   for(auto x: vec){
     cout << x << endl;
   }
